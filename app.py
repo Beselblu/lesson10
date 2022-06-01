@@ -21,13 +21,13 @@ def get_user_from_id(id: int, db: Session) -> User:
 
 
 def get_post_from_id(id: int, db: Session) -> Post:
-    return db.query(Post).filter(Post.id == id).limit(limit).one_or_none()
+    return db.query(Post).filter(Post.id == id).one_or_none()
 
 
 def get_feed(db: Session, id:int, limit: int, by_user_id: bool) -> Feed_Action:
     return (
         db.query(Feed_Action)
-        .filter(Feed_Action.user_id == id) if by_user_id else tmp.filter(Feed_Action.post_id == id)
+        .filter(Feed_Action.user_id == id) if by_user_id else filter(Feed_Action.post_id == id)
         .order_by(desc(Feed_Action.time))
         .limit(limit)
         .all()
